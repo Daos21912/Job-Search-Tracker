@@ -16,6 +16,11 @@ def load_data():
     if "Last Updated" not in df.columns:
         df["Last Updated"] = pd.Timestamp.today().normalize()
         save_data(df)
+    df["Last Updated"] = pd.to_datetime(df["Last Updated"])
+    df["Date Applied"] = pd.to_datetime(df["Date Applied"])
+    # Fill any NaT values that slipped through
+    df["Last Updated"] = df["Last Updated"].fillna(pd.Timestamp.today().normalize())
+    save_data(df)
     return df
 
 def save_data(df):

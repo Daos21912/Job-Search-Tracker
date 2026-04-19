@@ -44,9 +44,9 @@ else:
         elif filter_col == "Last Updated":
             col_a, col_b = st.columns(2)
             with col_a:
-                date_from = st.date_input("From", value=df["Last Updated"].min().date(), key="lu_date_from")
+                date_from = st.date_input("From", value=df["Last Updated"].dropna().min().date(), key="lu_date_from")
             with col_b:
-                date_to = st.date_input("To", value=df["Last Updated"].max().date(), key="lu_date_to")
+                date_to = st.date_input("To", value=df["Last Updated"].dropna().max().date(), key="lu_date_to")
             mask = (df["Last Updated"].dt.date >= date_from) & (df["Last Updated"].dt.date <= date_to)
         else:
             filter_val = st.text_input(f"Filter value", key="filter_val_text")
