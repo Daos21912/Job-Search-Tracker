@@ -1,5 +1,8 @@
 venv/
-data/
+data/*
+!data/.gitkeep
+data/cover_letters/*
+!data/cover_letters
 __pycache__/
 *.pyc
 .streamlit/
