@@ -44,7 +44,10 @@ with st.form("job_form", clear_on_submit=not editing):
     link = st.text_input("Job Link", value=row["Link"] if editing else "")
     notes = st.text_area("Notes", value=row["Notes"] if editing else "")
     submitted = st.form_submit_button("Save Changes" if editing else "Add Application")
-
+    last_updated = st.date_input(
+        "Last Updated",
+        value=date.today()  # always defaults to today, even in edit mode
+    )
     if submitted:
         new_row = {
             "Company": company.strip(),
@@ -53,6 +56,7 @@ with st.form("job_form", clear_on_submit=not editing):
             "Status": status,
             "Link": link,
             "Notes": notes,
+            "Last Updated": pd.Timestamp(last_updated),
         }
         if editing:
             duplicate = df[
